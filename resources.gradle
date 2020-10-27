@@ -1,0 +1,49 @@
+/*
+
+  1. Copy resource.gradle file in root project
+  2. In root build.gradle add 'apply from: "resources.gradle"'
+
+ */
+
+buildscript {
+  repositories {
+    mavenCentral()
+    maven {
+      url 'https://jitpack.io'
+      metadataSources {
+        artifact() //Look directly for artifact
+      }
+    }
+  }
+  dependencies {
+    classpath "com.badlogicgames.gdx:gdx-tools:1.9.11"
+    classpath "com.github.yuracodir:gdx-common-tools:main-859393a503-1"
+  }
+}
+def generatedSrc = "${project(":core").buildDir}/generated/resources"
+
+import com.yuracodir.common.tools.resources.RClassPacker
+import com.yuracodir.common.tools.resources.TexturesPacker
+
+task generateResources() {
+  doLast {
+    def targetProject = project(":core").projectDir.absolutePath
+    def source = "$targetProject/res"
+    def output = generatedSrc
+    new RClassPacker(new RClassPacker.Configuration(getGroup(), source, output)).process()
+  }
+}
+
+task generateTextures() {
+  doLast {
+    def targetProject = project(":core").projectDir.absolutePath
+    def source = "$targetProject/raw"
+    def output = "$targetProject/res/atlas"
+    new TexturesPacker(new TexturesPacker.Configuration(source, output, 4096, 4096)).process()
+  }
+}
+
+project(":core") {
+  sourceSets.main.java.srcDirs += generatedSrc
+  compileJava.dependsOn generateResources
+}
