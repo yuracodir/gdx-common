@@ -1,13 +1,10 @@
 plugins {
   id 'org.jetbrains.kotlin.jvm' version '1.4.10'
+  id 'maven'
 }
 
-group 'com.yuracodir.gdx.gdx-common'
+group 'com.github.yuracodir'
 version '1.0'
-
-sourceCompatibility = 1.7
-sourceSets.main.java.srcDirs = ["src/"]
-sourceSets.main.resources.srcDirs = ["res/"]
 
 repositories {
   mavenCentral()
@@ -18,5 +15,4 @@ dependencies {
   implementation "com.badlogicgames.gdx:gdx:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib"
   api "com.github.yuracodir.magic-screens:java:cb915fd67d"
-  implementation 'com.github.jitpack:gradle-simple:1.0'
 }
