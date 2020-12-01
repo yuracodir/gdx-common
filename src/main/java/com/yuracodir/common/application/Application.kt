@@ -1,6 +1,8 @@
 package com.yuracodir.common.application
 
 import com.badlogic.gdx.ApplicationAdapter
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -16,17 +18,21 @@ class ApplicationConfig(
   val height: Float)
 
 abstract class Application(configuration: ApplicationConfig) : ApplicationAdapter(), ContainerScreen {
-  private val guiStage by lazy {
+  protected val guiStage by lazy {
     Stage(ExtendViewport(configuration.width, configuration.height, OrthographicCamera()), SpriteBatch()).apply {
       addActor(backgroundGroup)
     }
   }
+  protected val inputProcessor = InputMultiplexer()
+
   private val backgroundGroup = WidgetGroup().apply {
     setFillParent(true)
     touchable = Touchable.childrenOnly
   }
 
   override fun create() {
+    Gdx.input.inputProcessor = inputProcessor
+    inputProcessor.addProcessor(guiStage)
   }
 
   override fun render() {
