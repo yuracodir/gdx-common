@@ -8,20 +8,24 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup
-import com.badlogic.gdx.utils.viewport.ExtendViewport
+import com.badlogic.gdx.utils.viewport.ScreenViewport
 import com.yuracodir.common.screens.GdxScreen
 import com.yuracodir.screens.ContainerScreen
 import com.yuracodir.screens.Screen
 
 class ApplicationConfig(
   val width: Float,
-  val height: Float)
+  val height: Float,
+)
 
-abstract class Application(configuration: ApplicationConfig) : ApplicationAdapter(), ContainerScreen {
-  protected val guiStage by lazy {
-    Stage(ExtendViewport(configuration.width, configuration.height, OrthographicCamera()), SpriteBatch()).apply {
-      addActor(backgroundGroup)
-    }
+abstract class Application(protected val configuration: ApplicationConfig) : ApplicationAdapter(), ContainerScreen {
+  protected open val guiStage by lazy {
+    Stage(ScreenViewport(
+      OrthographicCamera(configuration.width, configuration.height)),
+      SpriteBatch())
+        .apply {
+          addActor(backgroundGroup)
+        }
   }
   protected val inputProcessor = InputMultiplexer()
 
