@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-  implementation "com.badlogicgames.gdx:gdx:+"
+  implementation "com.badlogicgames.gdx:gdx:1.9.13"
   implementation "org.jetbrains.kotlin:kotlin-stdlib"
-  api "com.github.yuracodir.magic-screens:java:cb915fd67d"
+  implementation "com.github.yuracodir.magic-screens:java:95d67b4a87"
 }

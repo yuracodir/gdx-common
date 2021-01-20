@@ -46,7 +46,7 @@ abstract class Application(protected val configuration: ApplicationConfig) : App
 
   override fun resize(width: Int, height: Int) {
     super.resize(width, height)
-    (childRouter.currentScreen as? GdxScreen)?.let {
+    (childRouter.currentScreen as? GdxScreen)?.also {
       it.resize(width, height)
     }
   }

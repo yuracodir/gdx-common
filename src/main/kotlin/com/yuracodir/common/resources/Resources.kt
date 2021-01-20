@@ -6,7 +6,10 @@ import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.*
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.ParticleEffect
+import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
@@ -177,7 +180,7 @@ class Resources {
   private fun parse(texture: TextureAtlas): TextureAtlas {
     texture.regions.forEach {
       when {
-        it.splits != null -> addNinePatch(it.name, NinePatchDrawable(NinePatch(it)))
+        it.findValue("split") != null -> addNinePatch(it.name, NinePatchDrawable(texture.createPatch(it.name)))
         it.index != -1 -> addSpriteFrame(it.name, Sprite(it))
         else -> addSprite(it.name, Sprite(it))
       }
