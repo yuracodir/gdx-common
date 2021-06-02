@@ -25,7 +25,7 @@ class DiModule {
     }
   }
 
-  inline fun<reified T> get() : T = Unit.get()
+  inline fun<reified T> get() : T = com.yuracodir.common.di.get()
 }
 
 fun module(block: DiModule.() -> Unit): DiModule {
@@ -38,8 +38,8 @@ fun startDi(block: DiService.() -> Unit): DiService {
 
 val diInstance = DiService()
 
-inline fun <reified T> Any.get() = diInstance.get<T>()
+inline fun <reified T> get() = diInstance.get<T>()
 
-inline fun <reified T> Any.inject(): Lazy<T> = lazy {
+inline fun <reified T> inject(): Lazy<T> = lazy {
   get()
 }

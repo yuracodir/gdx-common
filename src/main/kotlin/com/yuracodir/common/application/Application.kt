@@ -19,19 +19,21 @@ class ApplicationConfig(
 )
 
 abstract class Application(protected val configuration: ApplicationConfig) : ApplicationAdapter(), ContainerScreen {
-  protected open val guiStage by lazy {
-    Stage(ScreenViewport(
-      OrthographicCamera(configuration.width, configuration.height)),
-      SpriteBatch())
-        .apply {
-          addActor(backgroundGroup)
-        }
+  protected val guiStage: Stage by lazy {
+    createGuiStage().apply {
+      addActor(backgroundGroup)
+    }
   }
   protected val inputProcessor = InputMultiplexer()
-
-  private val backgroundGroup = WidgetGroup().apply {
+  protected val backgroundGroup = WidgetGroup().apply {
     setFillParent(true)
     touchable = Touchable.childrenOnly
+  }
+
+  protected open fun createGuiStage(): Stage {
+    return Stage(ScreenViewport(
+      OrthographicCamera(configuration.width, configuration.height)),
+      SpriteBatch())
   }
 
   override fun create() {
