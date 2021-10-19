@@ -6,8 +6,10 @@ import com.yuracodir.screens.ContainerScreen
 import com.yuracodir.screens.ScreenNavigator
 import com.yuracodir.screens.ScreenRouter
 
-open class BaseGdxRouter(
-  private val container: ContainerScreen, navigator: ScreenNavigator = ScreenNavigator(container)) : ScreenRouter(container, navigator) {
+open class GdxRouter(
+  private val container: ContainerScreen,
+  navigator: ScreenNavigator = ScreenNavigator(container)
+) : ScreenRouter(container, navigator) {
 
   override fun applyCommand(vararg command: Command<*>) {
     if (isLocked()) return

@@ -1,10 +1,10 @@
 plugins {
-  id 'org.jetbrains.kotlin.jvm' version '1.4.10'
+  id 'org.jetbrains.kotlin.jvm' version '1.5.31'
   id 'maven'
 }
 
 group 'com.github.yuracodir'
-version '1.0'
+version '1.2'
 
 repositories {
   mavenCentral()
@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-  implementation "com.badlogicgames.gdx:gdx:1.9.13"
-  implementation "org.jetbrains.kotlin:kotlin-stdlib"
+  implementation "com.badlogicgames.gdx:gdx:1.10.0"
+  implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
   implementation "com.github.yuracodir.magic-screens:java:95d67b4a87"
 }

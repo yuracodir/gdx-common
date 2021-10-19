@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.yuracodir.screens.CallbackScreen
 import com.yuracodir.screens.ScreenRouter
 
-abstract class GdxScreen(override var router: ScreenRouter) : CallbackScreen<ScreenRouter>() {
+abstract class GdxScreen<R: ScreenRouter>(override var router: R) : CallbackScreen<R>() {
 
     abstract val root: Group
 
