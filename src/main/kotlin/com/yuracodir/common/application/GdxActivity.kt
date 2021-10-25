@@ -31,7 +31,7 @@ abstract class GdxActivity(viewportWidth: Float, viewportHeight: Float) :
     touchable = Touchable.childrenOnly
   }
 
-  private val guiStage: Stage = Stage(
+  val guiStage: Stage = Stage(
     ScreenViewport(OrthographicCamera(display.viewportWidth, display.viewportHeight)),
     spriteBatch)
     .apply {
