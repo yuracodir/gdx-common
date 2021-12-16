@@ -39,7 +39,7 @@ class Resources {
     resources[key] = font
   }
 
-  private fun particleCallback(value: String) = ParticleCallback(value) { manager, key ->
+  private fun particleCallback(value: String) = ParticleCallback("atlas/particles.atlas") { manager, key ->
     val particle: ParticleEffect = manager.get(key)
     resources[key] = particle
   }
@@ -63,9 +63,8 @@ class Resources {
   fun getNinePatchDrawable(key: String): Drawable = getResource<NinePatchDrawable>(key) ?: (emptyNinePatch)
   fun getSound(key: String) = getResource<Sound>(key) ?: (emptySound)
   fun getDrawable(key: String): Drawable = SpriteDrawable(Sprite(getSprite(key)))
-
-  fun getString(key: String): String = localizationProvider.get(key) ?: (key)
-  fun getString(key: String, vararg values: Any): String = localizationProvider.get(key, *values) ?: (key)
+  fun getString(key: String): String = localizationProvider.get(key) ?: key
+  fun getString(key: String, vararg values: Any) = localizationProvider.get(key, *values) ?: (key)
 
   fun loadWithAssetManager(resClass: Class<*>): AssetManager {
     val assetManager = AssetManager()
@@ -113,7 +112,7 @@ class Resources {
           when (cls.simpleName) {
             "atlas" -> addTextureAttlas(value)
             "font" -> addFont(value)
-            "particle" -> addParticle(value)
+            "particle" -> addParticle(value, "/particles.atlas")
             "skin" -> addSkin(value)
             "color" -> addColor(value)
             "sound" -> addSound(value)
@@ -150,9 +149,9 @@ class Resources {
     resources[key] = Skin(Gdx.files.internal(key))
   }
 
-  private fun addParticle(key: String) {
+  private fun addParticle(key: String, atlas: String) {
     resources[key] = ParticleEffect().apply {
-      load(Gdx.files.internal(key), TextureAtlas(key.replaceAfterLast(".", "atlas")))
+      load(Gdx.files.internal(key), getAtlas(atlas))
     }
   }
 

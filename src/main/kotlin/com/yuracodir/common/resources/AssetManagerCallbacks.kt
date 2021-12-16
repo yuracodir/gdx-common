@@ -22,10 +22,10 @@ class BitmapFontCallback(onFinish: (AssetManager, String) -> Unit)
   }
 }
 
-class ParticleCallback(key: String, onFinish: (AssetManager, String) -> Unit)
-  : ParticleEffectLoader.ParticleEffectParameter() {
+class ParticleCallback(atlas: String, onFinish: (AssetManager, String) -> Unit) :
+  ParticleEffectLoader.ParticleEffectParameter() {
   init {
-    atlasFile = key.replaceAfterLast(".", "atlas")
+    atlasFile = atlas
     loadedCallback = LoadedCallback { assetManager, fileName, _ ->
       onFinish.invoke(assetManager, fileName)
     }
