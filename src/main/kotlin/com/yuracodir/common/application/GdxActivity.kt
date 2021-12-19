@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.Touchable
@@ -18,26 +19,22 @@ abstract class GdxActivity(viewportWidth: Float, viewportHeight: Float) :
   ContainerScreen,
   Screen {
 
-  val spriteBatch = SpriteBatch()
+  open val spriteBatch: Batch = SpriteBatch()
   val inputProcessor = InputMultiplexer()
 
-  private val backgroundGroup = WidgetGroup().apply {
+  private val screenContainer = WidgetGroup().apply {
     setFillParent(true)
     touchable = Touchable.childrenOnly
   }
 
-  private val foregroundGroup = WidgetGroup().apply {
-    setFillParent(true)
-    touchable = Touchable.childrenOnly
+  val guiStage: Stage by lazy {
+    Stage(
+      ScreenViewport(OrthographicCamera(display.viewportWidth, display.viewportHeight)),
+      spriteBatch)
+      .apply {
+        addActor(screenContainer)
+      }
   }
-
-  val guiStage: Stage = Stage(
-    ScreenViewport(OrthographicCamera(display.viewportWidth, display.viewportHeight)),
-    spriteBatch)
-    .apply {
-      addActor(backgroundGroup)
-      addActor(foregroundGroup)
-    }
 
   override fun pause() {
     childRouter.navigator.pause()
@@ -70,7 +67,7 @@ abstract class GdxActivity(viewportWidth: Float, viewportHeight: Float) :
 
   override fun attach(screen: com.yuracodir.screens.Screen<*>) {
     if (screen is GdxScreen) {
-      backgroundGroup.addActor(screen.root)
+      screenContainer.addActor(screen.root)
     }
   }
 
