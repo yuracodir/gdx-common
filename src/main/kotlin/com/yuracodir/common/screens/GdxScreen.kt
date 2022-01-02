@@ -11,7 +11,7 @@ abstract class GdxScreen<R: ScreenRouter>(override var router: R) : CallbackScre
     override fun getName(): String = javaClass.simpleName
 
     override fun back(): Boolean {
-        return super.back() && router.back()
+        return super.back() || router.back()
     }
 
     open fun resize(width: Int, height: Int) {}
