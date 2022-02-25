@@ -10,12 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup
 import com.badlogic.gdx.utils.viewport.ScreenViewport
-import com.yuracodir.common.resources.Resources
 import com.yuracodir.common.screens.GdxScreen
 import com.yuracodir.screens.ContainerScreen
 
-abstract class GdxActivity(viewportWidth: Float, viewportHeight: Float) :
-  Context(Resources(), Display(Gdx.graphics.width, Gdx.graphics.height, viewportWidth, viewportHeight)),
+abstract class GdxActivity(context: Context, display: Display = context.display) :
+  Context(context.resources, display),
   ContainerScreen,
   Screen {
 
