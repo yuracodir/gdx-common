@@ -4,7 +4,6 @@ import com.badlogic.gdx.assets.AssetLoaderParameters
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.assets.loaders.ParticleEffectLoader
 import com.badlogic.gdx.graphics.g2d.ParticleEffect
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.yuracodir.common.resources.Resources
 
 class ParticleFileLoader(private val atlas: String) : Resources.AssetResourceLoader("particle") {
@@ -12,7 +11,7 @@ class ParticleFileLoader(private val atlas: String) : Resources.AssetResourceLoa
     assetManager.load(path, ParticleEffect::class.java, ParticleEffectLoader.ParticleEffectParameter().also {
       it.atlasFile = atlas
       it.loadedCallback = AssetLoaderParameters.LoadedCallback { assetManager, fileName, _ ->
-        val atlas = assetManager.get<Skin>(fileName)
+        val atlas = assetManager.get<ParticleEffect>(fileName)
         resources.add(fileName, atlas)
       }
     })
