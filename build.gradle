@@ -20,3 +20,15 @@ dependencies {
   implementation "com.badlogicgames.gdx:gdx:1.12.1"
   implementation "org.jetbrains.kotlin:kotlin-stdlib"
 }
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      groupId = 'com.github.yuracodir'
+      artifactId = 'gdx-common'
+      version = '2.0'
+
+      from components.java
+    }
+  }
+}
