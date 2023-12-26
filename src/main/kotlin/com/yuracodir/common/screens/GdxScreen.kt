@@ -2,17 +2,22 @@ package com.yuracodir.common.screens
 
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.yuracodir.screens.CallbackScreen
-import com.yuracodir.screens.ScreenRouter
 
-abstract class GdxScreen<R: ScreenRouter>(override var router: R) : CallbackScreen<R>() {
+abstract class GdxScreen : CallbackScreen() {
 
-    abstract val root: Group
+  abstract val root: Group
 
-    override fun getName(): String = javaClass.simpleName
+  var backIsNotDispatched = false
+  override fun getName(): String = javaClass.simpleName
 
-    override fun back(): Boolean {
-        return super.back() || router.back()
-    }
+  open fun resize(width: Int, height: Int) {}
 
-    open fun resize(width: Int, height: Int) {}
+  open fun dispatchOnBackPressed() {
+    super.onBackPressed()
+    onBackPressed()
+  }
+
+  override fun onBackPressed() {
+    backIsNotDispatched = true
+  }
 }

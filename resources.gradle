@@ -16,7 +16,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "com.badlogicgames.gdx:gdx-tools:1.9.11"
+    classpath "com.badlogicgames.gdx:gdx-tools:1.12.1"
     classpath "com.github.yuracodir:gdx-common-tools:main-859393a503-1"
   }
 }
